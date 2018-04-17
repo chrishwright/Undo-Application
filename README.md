@@ -15,11 +15,15 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-Pull down the repo
+Pull down the repo to a local directory
 
 ```
-Give the example
+git clone https://github.com/valtera45/Undo-Application.git
+cd Undo-Application
+
 ```
+
+
 
 And repeat
 
