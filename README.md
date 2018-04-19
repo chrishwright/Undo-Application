@@ -20,6 +20,12 @@ Pull down the repo to a local directory
 ```
 git clone https://github.com/valtera45/Undo-Application.git
 cd Undo-Application
+mvn clean install
+```
+
+Next run the application...
+
+```
 
 ```
 

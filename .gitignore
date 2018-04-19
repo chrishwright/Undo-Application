@@ -12,7 +12,6 @@ target/
 
 # project files
 *.classpath
-*.project
 
 # eclipse settings dir
 .settings/
