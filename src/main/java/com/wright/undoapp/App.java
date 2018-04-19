@@ -15,7 +15,7 @@ public class App
     public static void main( String[] args )
     {
         MS_LOG.info("Starting App...");
-        @SuppressWarnings("unused")
         UndoAppGUI gui = new UndoAppGUI();
+        gui.init();
     }
 }

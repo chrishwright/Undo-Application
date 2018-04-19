@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 import javax.swing.JButton;
@@ -29,13 +30,15 @@ public class UndoAppGUI {
     private JButton button1;
     private JButton button2;
     private JButton button3;
-    private JButton undoButton;
+    private JButton undoButton; 
     private JTextArea textArea;
     private JScrollPane jsp;
     private Stack<JButton> stack = new Stack<>();
     ColorGenerator colGen = new ColorGenerator();
     
-    public UndoAppGUI() {
+    UndoAppGUI() {}
+    
+    public void init() {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 initializeGUI();
@@ -119,31 +122,43 @@ public class UndoAppGUI {
         mainFrame.add(undoButton);
         
         button1.addActionListener(e -> {
-            stack.push(button1);
-            button1.setBackground(colGen.generateRandomColor());
+            updateButton(button1);
             MS_LOG.info("Button1 clicked...");
             updateTextArea();
         });
         button2.addActionListener(e -> {
-            stack.push(button2);
-            button2.setBackground(colGen.generateRandomColor());
+            updateButton(button2);
             MS_LOG.info("Button2 clicked...");
             updateTextArea();
         });
         button3.addActionListener(e -> {
-            stack.push(button3);
-            button3.setBackground(colGen.generateRandomColor());
+            updateButton(button3);
             MS_LOG.info("Button3 clicked...");
             updateTextArea();
         });
         undoButton.addActionListener(e -> {
             MS_LOG.info("UndoButton clicked...");
+            try {
+                restoreButton();
+                updateTextArea();
+            }
+            catch (RuntimeException runtimeException) {
+                MS_LOG.warn(runtimeException.getMessage());
+            }
         });
         
         textArea = new JTextArea(12,19);
         jsp = new JScrollPane(textArea, 
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    }
+    
+    private void updateButton(JButton button) {
+        JButton tempButton = new JButton();
+        tempButton.setBackground(button.getBackground());
+        tempButton.setText(button.getText());
+        stack.push(tempButton);
+        button.setBackground(colGen.generateRandomColor());
     }
     
     private void updateTextArea() {
@@ -155,6 +170,33 @@ public class UndoAppGUI {
         }
         
         textArea.setText(newText.toString());
+    }
+    
+    private void restoreButton() {
+        JButton tempButton = new JButton();
+        
+        try {
+            tempButton = stack.pop();
+        }
+        catch (EmptyStackException emptyStackException) {
+            // TODO: Change to custom exception type
+            throw new RuntimeException("The stack is empty");
+        }
+        
+        String buttonName = tempButton.getText();
+        switch(buttonName) {
+            case "1":
+                button1.setBackground(tempButton.getBackground());
+                break;
+            case "2":
+                button2.setBackground(tempButton.getBackground());
+                break;
+            case "3":
+                button3.setBackground(tempButton.getBackground());
+                break;
+            default:
+                MS_LOG.info("Stack is empty.");
+        }
     }
     
 }

@@ -10,7 +10,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-* Java 8
+* Java 8 or higher
 * Maven
 
 ### Installing
@@ -35,4 +35,4 @@ java -jar target/UndoApp-jar-with-dependencies.jar
 
 ## Authors
 
-* **Chris Wright** - *Initial work* - [valtera45](https://github.com/valtera45)
+* **Chris Wright** -- [valtera45](https://github.com/valtera45)
