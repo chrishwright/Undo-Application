@@ -15,7 +15,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-Pull down the repo to a local directory
+Pull down the repository to a local directory
 
 ```
 git clone https://github.com/valtera45/Undo-Application.git
@@ -26,18 +26,8 @@ mvn clean install
 Next run the application...
 
 ```
-
+java -jar target/UndoApp-jar-with-dependencies.jar
 ```
-
-
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Built With
 
