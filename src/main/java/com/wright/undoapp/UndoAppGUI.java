@@ -6,7 +6,6 @@ import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.EmptyStackException;
 import java.util.Stack;
 
 import javax.swing.JButton;
@@ -142,9 +141,10 @@ public class UndoAppGUI {
                 restoreButton();
                 updateTextArea();
             }
-            catch (RuntimeException runtimeException) {
-                MS_LOG.warn(runtimeException.getMessage());
+            catch (EmptyStackException emptyStackException) {
+                MS_LOG.warn(emptyStackException.getMessage());
             }
+
         });
         
         textArea = new JTextArea(12,19);
@@ -178,9 +178,8 @@ public class UndoAppGUI {
         try {
             tempButton = stack.pop();
         }
-        catch (EmptyStackException emptyStackException) {
-            // TODO: Change to custom exception type
-            throw new RuntimeException("The stack is empty");
+        catch (java.util.EmptyStackException emptyStackException) {
+            throw new EmptyStackException("The stack is empty");
         }
         
         String buttonName = tempButton.getText();
